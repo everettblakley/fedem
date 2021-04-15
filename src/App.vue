@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <navbar />
-    <router-view />
+    <Navbar />
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
@@ -15,3 +17,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+main {
+  overflow: auto;
+}
+</style>

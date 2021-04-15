@@ -1,12 +1,14 @@
 <template>
-  <b-navbar>
+  <b-navbar type="is-info">
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img
           src="../assets/logo.png"
           alt="Lightweight UI components for Vue.js based on Bulma"
         />
-        <h5 class="ml-2 subtitle">FedEm</h5>
+        <h5 class="ml-2 subtitle has-text-white has-text-weight-normal">
+          Fed<span class="has-text-weight-bold has-text-grey-dark">Em</span>
+        </h5>
       </b-navbar-item>
     </template>
 
@@ -25,6 +27,6 @@
 
 <script>
 export default {
-  name: "navbar",
+  name: "Navbar",
 };
 </script>
