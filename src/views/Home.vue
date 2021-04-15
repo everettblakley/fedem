@@ -1,18 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="columns">
+      <div
+        class="column has-background-light has-text-dark"
+        v-for="pet in pets"
+        v-bind:key="pet.name"
+      >
+        {{ pet.name }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
-  },
+  computed: mapState(["pets"]),
 };
 </script>
