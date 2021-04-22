@@ -18,8 +18,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+#app {
+  height: 100%;
+}
+
 main {
   overflow: auto;
+  height: 100%;
 }
 </style>
