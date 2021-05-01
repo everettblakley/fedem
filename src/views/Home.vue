@@ -1,15 +1,16 @@
 <template>
-  <div class="container">
-    <div class="columns mt-4">
-      <div v-for="tab in tabs" :key="tab">
-        <div v-if="selectedGroup" class="columns">
-          <PetView
-            v-for="pet in selectedGroup.pets"
-            v-bind:key="pet.name"
-            v-bind:pet="pet"
-          />
-        </div>
-      </div>
+  <div class="container mx-auto divide-y-2">
+    <div
+      v-for="group in groups"
+      :key="group.name"
+      class="grid grid-cols-1 md:grid-cols-3 gap-4 py-10 px-8 md:px-0"
+    >
+      <PetView
+        class="mx-auto"
+        v-for="pet in group.pets"
+        v-bind:key="pet.name"
+        v-bind:pet="pet"
+      />
     </div>
   </div>
 </template>

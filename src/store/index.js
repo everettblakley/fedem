@@ -12,8 +12,9 @@ export default new Vuex.Store({
       email: "something@gmail.com",
       name: "John Smith",
     },
-    groups: {
-      "Group 1": {
+    groups: [
+      {
+        name: "Group 1",
         pets: [
           {
             name: "Nova",
@@ -63,10 +64,11 @@ export default new Vuex.Store({
           },
         ],
       },
-      "Group 2": {
+      {
+        name: "Group 2",
         pets: [],
       },
-    },
+    ],
   },
   mutations: {},
   actions: {},

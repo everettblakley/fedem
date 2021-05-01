@@ -1,28 +1,19 @@
 <template>
-  <div class="column">
-    <div class="box has-background-light">
-      <div
-        class="is-flex is-justify-content-space-between is-align-items-flex-end"
-      >
-        <h4 class="is-size-4">{{ pet.name }}</h4>
-        <span class="tag is-medium is-info is-light"
-          >{{ totalFed.value }}/{{ pet.max }}
-          {{ amountString(pet.max) }}
-        </span>
-      </div>
-      <!-- Progress bar -->
+  <div
+    class="border-2 border-black rounded-2xl p-8 w-full h-96 flex flex-col justify-between"
+  >
+    <h3 class="hard-shadow-orange">{{ pet.name }}</h3>
+    <div>
+      <h6>Last feeding:</h6>
       <p>
-        <b>Last feeding:</b>
-        {{ lastFeeding.amount }}
-        {{ amountString(lastFeeding.amount) }}, {{ lastFeeding.timestamp }}
+        {{ lastFeeding.amount }} {{ amountString(lastFeeding.amount) }},
+        {{ lastFeeding.timestamp }}
       </p>
-      <p
-        class="has-text-link has-text-underline has-text-centered is-clickable pt-2"
-      >
-        Show more...
-      </p>
-      <div class="navbar-divider has-background-grey my-2" />
     </div>
+    <div class="border-2 border-black rounded-xl h-6 overflow-hidden">
+      <div class="bg-yellow-500 w-3/4 h-6"></div>
+    </div>
+    <button class="btn bg-yellow-500">Add Feeding</button>
   </div>
 </template>
 

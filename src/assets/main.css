@@ -1,0 +1,82 @@
+@import ('./tailwind');
+
+h1 {
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 104px;
+  line-height: 126px;
+}
+
+h2 {
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 65px;
+  line-height: 79px;
+}
+
+h3 {
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 52px;
+  line-height: 63px;
+}
+
+h4 {
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 37px;
+  line-height: 45px;
+}
+
+h5 {
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+h6 {
+  font-family: Cabin;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+p {
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 21px;
+  letter-spacing: 0.05em;
+}
+
+.btn {
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 19px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hard-shadow-orange {
+  text-shadow: -2px 2px 0px #f2994a;
+}
+
+button.btn {
+  @apply flex justify-center items-center py-4 px-14 border-2 border-black rounded-3xl;
+  transition: all 200ms ease-in-out;
+}
+
+button.btn:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0px 4px 0px #000000;
+}
