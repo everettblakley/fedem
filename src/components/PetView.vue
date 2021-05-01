@@ -10,11 +10,7 @@
           {{ amountString(pet.max) }}
         </span>
       </div>
-      <b-progress
-        :value="totalFed.percent || 0"
-        :type="progressType"
-        class="mt-2"
-      ></b-progress>
+      <!-- Progress bar -->
       <p>
         <b>Last feeding:</b>
         {{ lastFeeding.amount }}
@@ -26,45 +22,6 @@
         Show more...
       </p>
       <div class="navbar-divider has-background-grey my-2" />
-      <form @submit="submitForm">
-        <p class="has-text-centered is-size-5">New Feeding</p>
-        <b-field label="Time">
-          <b-datetimepicker
-            v-model="newFeeding.timestamp"
-            placeholder="Click to select..."
-          >
-            <template #left>
-              <b-button
-                label="Now"
-                type="is-primary"
-                icon-left="clock"
-                @click="datetime = new Date()"
-              />
-            </template>
-
-            <template #right>
-              <b-button
-                label="Clear"
-                type="is-danger"
-                icon-left="close"
-                outlined
-                @click="datetime = null"
-              />
-            </template>
-          </b-datetimepicker>
-        </b-field>
-        <b-field label="Amount">
-          <b-numberinput
-            v-model="newFeeding.amount"
-            step="0.01"
-            min="0"
-            aria-minus-label="Decrement by 0.01"
-            aria-plus-label="Increment by 0.01"
-          >
-          </b-numberinput>
-        </b-field>
-        <b-button type="is-primary" class="w-100 mt-2">Add feeding</b-button>
-      </form>
     </div>
   </div>
 </template>
