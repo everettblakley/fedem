@@ -27,7 +27,9 @@
         :label="food.name"
       ></progress-bar>
     </div>
-    <button class="btn bg-yellow-500 mt-auto mx-auto z-20">Add Feeding</button>
+    <button class="btn bg-yellow-500 mt-auto mx-auto z-20" @click="submitForm">
+      Add Feeding
+    </button>
   </div>
 </template>
 
@@ -36,6 +38,8 @@ import isSameDay from "date-fns/isSameDay";
 import formatRelative from "date-fns/formatRelative";
 import CornerDoodle from "./CornerDoodle.vue";
 import ProgressBar from "./ProgressBar.vue";
+import { mapMutations } from "vuex";
+
 export default {
   name: "PetView",
   props: { pet: Object, alignment: { type: String, default: "left" } },
@@ -94,12 +98,13 @@ export default {
     },
     submitForm(e) {
       e.preventDefault();
-      console.log(this.pet);
-      console.log(this.newFeeding);
+      this.setIsLoading(true);
+      setTimeout(() => this.setIsLoading(false), 1000);
     },
     getFeedings(name) {
       return this.pet.feedings.filter((feeding) => feeding.name === name);
     },
+    ...mapMutations(["setIsLoading"]),
   },
   components: { CornerDoodle, ProgressBar },
 };

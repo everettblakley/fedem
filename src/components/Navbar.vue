@@ -1,6 +1,7 @@
 <template>
   <div
     class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-transparent absolute top-0 left-1/2 transform -translate-x-1/2 z-50"
+    :class="{ 'pointer-events-none': isLoading }"
   >
     <div class="relative z-20">
       <router-link to="/"><h5>FedEmAt</h5></router-link>
@@ -29,10 +30,8 @@
         <router-link v-if="user" to="/profile" active-class="text-white"
           ><h6>Profile</h6></router-link
         >
-        <router-link v-if="user" to="/logout" active-class="text-white"
-          ><h6>Logout</h6></router-link
-        >
-        <router-link v-if="!user" to="/login" active-class="text-white"
+        <h6 v-if="user" @click="logout()" class="cursor-pointer">Logout</h6>
+        <router-link v-if="!user" to="{name: 'Login'}" active-class="text-white"
           ><h6>Login</h6></router-link
         >
         <router-link v-if="!user" to="/sign-up" active-class="text-white"
@@ -66,7 +65,13 @@ export default {
     });
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "isLoading"]),
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.replace({ name: "Login" });
+    },
   },
 };
 </script>

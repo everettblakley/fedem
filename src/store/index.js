@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isLoading: false,
     user: {
       uid: "12345",
       email: "something@gmail.com",
@@ -86,7 +87,26 @@ export default new Vuex.Store({
       },
     ],
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    setUser(state, user) {
+      state.user = user;
+    },
+    setIsLoading(state, value) {
+      state.isLoading = value;
+    },
+  },
+  actions: {
+    login({ commit }, email, password) {
+      commit("setUser", {
+        id: "12345",
+        email,
+        password,
+        name: "John Smith",
+      });
+    },
+    logout({ commit }) {
+      commit("setUser", {});
+    },
+  },
   modules: {},
 });
