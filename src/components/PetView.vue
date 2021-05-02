@@ -1,13 +1,13 @@
 <template>
   <div
-    class="border-2 border-black rounded-2xl p-8 w-full h-auto relative overflow-hidden"
+    class="border-2 border-black rounded-2xl p-8 w-full h-auto relative overflow-hidden flex flex-col"
   >
     <corner-doodle
       :alignment="alignment"
       :type="pet.type"
-      class="absolute top-0 right-0 w-56 h-56 transform translate-x-1/2 -translate-y-1/2"
+      class="absolute top-0 right-0 w-full h-full z-0"
     ></corner-doodle>
-    <div class="flex flex-col justify-between space-y-8">
+    <div class="flex flex-col justify-between space-y-8 mb-8 z-10">
       <h3 class="hard-shadow-orange">
         {{ pet.name }}
       </h3>
@@ -19,10 +19,15 @@
         </p>
       </div>
 
-      <progress-bar :progress="totalFed.percent"></progress-bar>
-
-      <button class="btn bg-yellow-500">Add Feeding</button>
+      <progress-bar
+        v-for="food in pet.food"
+        :key="food.name"
+        :progress="0"
+        :feedings="getFeedings(food.name)"
+        :label="food.name"
+      ></progress-bar>
     </div>
+    <button class="btn bg-yellow-500 mt-auto mx-auto z-20">Add Feeding</button>
   </div>
 </template>
 
@@ -91,6 +96,9 @@ export default {
       e.preventDefault();
       console.log(this.pet);
       console.log(this.newFeeding);
+    },
+    getFeedings(name) {
+      return this.pet.feedings.filter((feeding) => feeding.name === name);
     },
   },
   components: { CornerDoodle, ProgressBar },

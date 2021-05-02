@@ -1,14 +1,18 @@
 <template>
   <div>
     <div class="w-full h-full relative">
-      <blob class="w-full h-full text-yellow-500" :style="blobStyle"></blob>
-      <div class="absolute bottom-0 left-4 w-36">
+      <blob
+        class="w-full h-full text-yellow-500 absolute -top-1/2 -right-1/2"
+        :style="blobStyle"
+      ></blob>
+      <div class="doodle absolute top-0 -right-12 w-36">
         <cat v-if="type === 'cat'"></cat>
         <dog v-if="type === 'dog'"></dog>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import Blob from "./Blob.vue";
 import Dog from "./Dog.vue";
@@ -33,3 +37,8 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.doodle {
+}
+</style>

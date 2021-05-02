@@ -19,13 +19,16 @@ export default new Vuex.Store({
           {
             name: "Nova",
             type: "cat",
+            food: [{ name: "kibble", max: 2, frequency: 172800 }],
             max: 2,
             feedings: [
               {
+                name: "kibble",
                 amount: 1,
                 timestamp: sub(new Date(), { days: 1 }),
               },
               {
+                name: "kibble",
                 amount: 1.5,
                 timestamp: sub(new Date(), { days: 1 }),
               },
@@ -34,13 +37,19 @@ export default new Vuex.Store({
           {
             name: "Ember",
             type: "cat",
+            food: [
+              { name: "kibble", max: 1, frequency: 86400 },
+              { name: "wet", max: 0.0208333, frequency: 86400 },
+            ],
             max: 1.5,
             feedings: [
               {
+                name: "kibble",
                 amount: 0.25,
                 timestamp: sub(new Date(), { days: 1 }),
               },
               {
+                name: "kibble",
                 amount: 0.5,
                 timestamp: set(new Date(), { hours: 16, minutes: 4 }),
               },
@@ -49,17 +58,21 @@ export default new Vuex.Store({
           {
             name: "Flurry",
             type: "dog",
+            food: [{ name: "kibble", max: 3, frequency: 86400 }],
             max: 2.5,
             feedings: [
               {
+                name: "kibble",
                 amount: 1,
                 timestamp: set(new Date(), { hours: 8, minutes: 30 }),
               },
               {
+                name: "kibble",
                 amount: 1,
                 timestamp: set(new Date(), { hours: 12, minutes: 12 }),
               },
               {
+                name: "kibble",
                 amount: 1,
                 timestamp: sub(new Date(), { minutes: 30 }),
               },
