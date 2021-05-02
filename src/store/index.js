@@ -18,6 +18,7 @@ export default new Vuex.Store({
         pets: [
           {
             name: "Nova",
+            type: "cat",
             max: 2,
             feedings: [
               {
@@ -32,6 +33,7 @@ export default new Vuex.Store({
           },
           {
             name: "Ember",
+            type: "cat",
             max: 1.5,
             feedings: [
               {
@@ -46,6 +48,7 @@ export default new Vuex.Store({
           },
           {
             name: "Flurry",
+            type: "dog",
             max: 2.5,
             feedings: [
               {

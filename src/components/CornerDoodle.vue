@@ -1,0 +1,35 @@
+<template>
+  <div>
+    <div class="w-full h-full relative">
+      <blob class="w-full h-full text-yellow-500" :style="blobStyle"></blob>
+      <div class="absolute bottom-0 left-4 w-36">
+        <cat v-if="type === 'cat'"></cat>
+        <dog v-if="type === 'dog'"></dog>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import Blob from "./Blob.vue";
+import Dog from "./Dog.vue";
+import Cat from "./Cat.vue";
+export default {
+  name: "CornerDoodle",
+  props: ["alignment", "type"],
+  components: { Blob, Cat, Dog },
+  data: function () {
+    return {
+      blobAngle: 0,
+    };
+  },
+  computed: {
+    /** @returns { string } */
+    blobStyle() {
+      return `transform: rotate(${this.blobAngle}deg)`;
+    },
+  },
+  created() {
+    this.blobAngle = Math.floor(Math.random() * 360);
+  },
+};
+</script>
