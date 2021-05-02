@@ -3,12 +3,14 @@
     class="border-2 border-black rounded-2xl p-8 w-full h-auto relative overflow-hidden"
   >
     <corner-doodle
-      alignment="left"
+      :alignment="alignment"
       :type="pet.type"
       class="absolute top-0 right-0 w-56 h-56 transform translate-x-1/2 -translate-y-1/2"
     ></corner-doodle>
     <div class="flex flex-col justify-between space-y-8">
-      <h3 class="hard-shadow-orange">{{ pet.name }}</h3>
+      <h3 class="hard-shadow-orange">
+        {{ pet.name }}
+      </h3>
       <div>
         <h6>Last feeding:</h6>
         <p>
@@ -16,9 +18,9 @@
           {{ lastFeeding.timestamp }}
         </p>
       </div>
-      <div class="border-2 border-black rounded-xl h-6 overflow-hidden">
-        <div class="bg-yellow-500 w-3/4 h-6"></div>
-      </div>
+
+      <progress-bar :progress="totalFed.percent"></progress-bar>
+
       <button class="btn bg-yellow-500">Add Feeding</button>
     </div>
   </div>
@@ -28,9 +30,10 @@
 import isSameDay from "date-fns/isSameDay";
 import formatRelative from "date-fns/formatRelative";
 import CornerDoodle from "./CornerDoodle.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default {
   name: "PetView",
-  props: ["pet"],
+  props: { pet: Object, alignment: { type: String, default: "left" } },
   data() {
     return {
       feedings: [],
@@ -90,6 +93,6 @@ export default {
       console.log(this.newFeeding);
     },
   },
-  components: { CornerDoodle },
+  components: { CornerDoodle, ProgressBar },
 };
 </script>

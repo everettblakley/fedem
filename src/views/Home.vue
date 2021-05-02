@@ -7,9 +7,10 @@
     >
       <PetView
         class="mx-auto"
-        v-for="pet in group.pets"
-        v-bind:key="pet.name"
-        v-bind:pet="pet"
+        v-for="(pet, index) in group.pets"
+        :key="pet.name"
+        :pet="pet"
+        :alignment="index % 2 === 0 ? 'left' : 'right'"
       />
     </div>
   </div>

@@ -70,7 +70,7 @@ p {
 }
 
 button.btn {
-  @apply flex justify-center items-center py-4 px-14 border-2 border-black rounded-3xl;
+  @apply flex justify-center items-center py-4 px-14 border-2 border-black rounded-3xl outline-none;
   transition: all 200ms ease-in-out;
 }
 
