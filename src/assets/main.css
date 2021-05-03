@@ -55,13 +55,19 @@ p {
   letter-spacing: 0.05em;
 }
 
-.btn {
+.btn,
+form.form > div.group > label,
+form.form > div.group > input {
   font-family: Source Sans Pro;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
   line-height: 19px;
   letter-spacing: 0.1em;
+}
+
+.btn,
+form.form > div.group > label {
   text-transform: uppercase;
 }
 
@@ -74,7 +80,28 @@ button.btn {
   transition: all 200ms ease-in-out;
 }
 
-button.btn:hover {
+button.btn:hover,
+form.form > div.group > input:focus {
   transform: translateY(-0.125rem);
   box-shadow: 0px 4px 0px #000000;
+}
+
+form.form {
+  display: flex;
+  flex-direction: column;
+}
+
+form.form > div.group {
+  display: flex;
+  flex-direction: column;
+  @apply pb-4;
+}
+
+form.form > div.group > label {
+  @apply pb-2;
+}
+
+form.form > div.group > input {
+  transition: all 200ms ease-in-out;
+  @apply border-2 border-black rounded-3xl p-4 outline-none;
 }

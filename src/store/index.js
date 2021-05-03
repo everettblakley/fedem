@@ -105,7 +105,12 @@ export default new Vuex.Store({
       });
     },
     logout({ commit }) {
-      commit("setUser", {});
+      commit("setUser", null);
+    },
+  },
+  getters: {
+    authenticated: (state) => {
+      return !!state.user;
     },
   },
   modules: {},

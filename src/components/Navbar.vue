@@ -1,12 +1,12 @@
 <template>
   <div
-    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-transparent absolute top-0 left-1/2 transform -translate-x-1/2 z-40"
+    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-transparent fixed top-0 left-1/2 transform -translate-x-1/2 z-40"
     :class="{ 'pointer-events-none': isLoading }"
   >
-    <div class="relative z-20">
+    <div class="z-20 p-2 rounded">
       <router-link to="/"><h5>FedEmAt</h5></router-link>
     </div>
-    <div class="ml-auto relative">
+    <div class="ml-auto">
       <div class="md:hidden">
         <div
           class="w-8 h-8 text-black relative z-20"
@@ -16,7 +16,7 @@
           <close v-else></close>
         </div>
         <blob
-          class="absolute text-yellow-500 z-10 blob"
+          class="fixed text-yellow-500 z-10 blob"
           :class="{ 'blob-open': menuOpen, 'blob-closed': !menuOpen }"
         ></blob>
       </div>
@@ -27,17 +27,28 @@
         v-if="menuOpen"
         class="absolute z-20 w-screen top-32 left-0 flex flex-col items-center space-y-4"
       >
-        <router-link v-if="user" to="/profile" active-class="text-white"
+        <router-link
+          v-if="authenticated"
+          to="/profile"
+          active-class="text-white"
           ><h6>Profile</h6></router-link
         >
-        <h6 v-if="user" @click="logout()" class="cursor-pointer">Logout</h6>
-        <router-link v-if="!user" to="{name: 'Login'}" active-class="text-white"
+        <h6 v-if="authenticated" @click="logout()" class="cursor-pointer">
+          Logout
+        </h6>
+        <router-link
+          v-if="!authenticated"
+          :to="{ name: 'Login' }"
+          active-class="text-white"
           ><h6>Login</h6></router-link
         >
-        <router-link v-if="!user" to="/sign-up" active-class="text-white"
+        <router-link
+          v-if="!authenticated"
+          to="/sign-up"
+          active-class="text-white"
           ><h6>Sign up</h6></router-link
         >
-        <router-link to="/about" active-class="text-white"
+        <router-link to="/authenticated" active-class="text-white"
           ><h6>About</h6></router-link
         >
       </ul>
@@ -46,7 +57,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import Hamburger from "./Hamburger.vue";
 import Close from "./Close.vue";
 import Blob from "./Blob.vue";
@@ -66,6 +77,7 @@ export default {
   },
   computed: {
     ...mapState(["user", "isLoading"]),
+    ...mapGetters(["authenticated"]),
   },
   methods: {
     logout() {
@@ -78,18 +90,14 @@ export default {
 <style scoped>
 .blob {
   transition: all 0.5s ease-in-out;
-}
-.blob-closed {
-  top: -9vh;
-  left: -6vh;
+  top: -3.5rem;
+  right: -3rem;
   width: 9rem;
   height: 9rem;
 }
 .blob-open {
-  width: 100vh;
-  height: 100vh;
-  top: -40vh;
-  left: -50vh;
+  /* Should probably do some math for this, but 🤷🏻‍♂️ */
+  transform: scale(8);
 }
 .menu-enter,
 .menu-leave-to {
