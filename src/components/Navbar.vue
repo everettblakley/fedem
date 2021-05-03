@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-transparent absolute top-0 left-1/2 transform -translate-x-1/2 z-50"
+    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-transparent absolute top-0 left-1/2 transform -translate-x-1/2 z-40"
     :class="{ 'pointer-events-none': isLoading }"
   >
     <div class="relative z-20">
