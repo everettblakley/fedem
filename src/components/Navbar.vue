@@ -6,7 +6,7 @@
     <div class="z-20 p-2 rounded">
       <router-link to="/"><h5>FedEmAt</h5></router-link>
     </div>
-    <div class="ml-auto">
+    <div v-if="authenticated" class="ml-auto">
       <div class="md:hidden">
         <div
           class="w-8 h-8 text-black relative z-20"

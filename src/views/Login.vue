@@ -55,7 +55,8 @@ export default {
   },
   methods: {
     submit() {
-      this.login(this.email, this.password)
+      console.log(this.email, this.password);
+      this.login({ email: this.email, password: this.password })
         .then(() => this.$router.replace({ name: "Home" }))
         .catch((errors) => {
           this.errors = errors;

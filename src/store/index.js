@@ -5,6 +5,12 @@ import set from "date-fns/set";
 
 Vue.use(Vuex);
 
+function validatePassword(password) {
+  console.log(password);
+  if (password.length < 8) return "Your password must be at least 8 characters";
+  return "";
+}
+
 export default new Vuex.Store({
   state: {
     isLoading: false,
@@ -96,12 +102,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async login({ commit }, email, password) {
+    async login({ commit }, { email, password }) {
       commit("setIsLoading", true);
       return await new Promise((resolve, reject) => {
         setTimeout(() => {
-          console.log(email, password);
-          reject({ email: "your email is dumb" });
+          const response = validatePassword(password);
+          if (response) reject({ password: response });
+          commit("setUser", { email, password });
+          resolve();
         }, 2000);
       })
         .then(() => commit("setIsLoading", false))
