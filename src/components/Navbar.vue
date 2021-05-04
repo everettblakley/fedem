@@ -20,38 +20,30 @@
           :class="{ 'blob-open': menuOpen, 'blob-closed': !menuOpen }"
         ></blob>
       </div>
-      <div class="hidden md:block">Desktop menu stuff</div>
+      <div class="hidden md:block">
+        <div
+          class="h-10 w-10 rounded-full relative cursor-pointer flex justify-center items-center bg-yellow-500"
+          @click="menuOpen = !menuOpen"
+        >
+          EB
+        </div>
+        <transition name="dropdown">
+          <div
+            v-if="menuOpen"
+            class="absolute mt-0.5 right-0 py-4 px-8 mr-8 bg-white rounded border-black border-2"
+          >
+            <navbar-content :authenticated="authenticated"></navbar-content>
+          </div>
+        </transition>
+      </div>
     </div>
-    <transition name="menu">
-      <ul
+    <transition name="mobile-menu">
+      <div
         v-if="menuOpen"
-        class="absolute z-20 w-screen top-32 left-0 flex flex-col items-center space-y-4"
+        class="absolute z-20 w-screen top-32 left-0 md:hidden"
       >
-        <router-link
-          v-if="authenticated"
-          to="/profile"
-          active-class="text-white"
-          ><h6>Profile</h6></router-link
-        >
-        <h6 v-if="authenticated" @click="logout()" class="cursor-pointer">
-          Logout
-        </h6>
-        <router-link
-          v-if="!authenticated"
-          :to="{ name: 'Login' }"
-          active-class="text-white"
-          ><h6>Login</h6></router-link
-        >
-        <router-link
-          v-if="!authenticated"
-          to="/sign-up"
-          active-class="text-white"
-          ><h6>Sign up</h6></router-link
-        >
-        <router-link to="/authenticated" active-class="text-white"
-          ><h6>About</h6></router-link
-        >
-      </ul>
+        <navbar-content :authenticated="authenticated"></navbar-content>
+      </div>
     </transition>
   </div>
 </template>
@@ -61,9 +53,11 @@ import { mapState, mapGetters } from "vuex";
 import Hamburger from "./Hamburger.vue";
 import Close from "./Close.vue";
 import Blob from "./Blob.vue";
+import NavbarContent from "./NavbarContent";
+
 export default {
   name: "Navbar",
-  components: { Hamburger, Blob, Close },
+  components: { Hamburger, Blob, Close, NavbarContent },
   data() {
     return {
       menuOpen: false,
@@ -79,12 +73,6 @@ export default {
     ...mapState(["user", "isLoading"]),
     ...mapGetters(["authenticated"]),
   },
-  methods: {
-    logout() {
-      this.$store.dispatch("logout");
-      this.$router.replace({ name: "Login" });
-    },
-  },
 };
 </script>
 <style scoped>
@@ -99,12 +87,19 @@ export default {
   /* Should probably do some math for this, but 🤷🏻‍♂️ */
   transform: scale(8);
 }
-.menu-enter,
-.menu-leave-to {
+.mobile-menu-enter,
+.mobile-menu-leave-to,
+.dropdown-enter,
+.dropdown-leave-to {
   opacity: 0;
 }
 
-.menu-enter-active {
+.mobile-menu-enter-active {
   transition: opacity 500ms ease-in-out 500ms;
+}
+
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: opacity 200ms ease;
 }
 </style>
