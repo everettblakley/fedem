@@ -56,8 +56,8 @@ p {
 }
 
 .btn,
-form.form > div.group > label,
-form.form > div.group > input {
+.group > label,
+.group > input {
   font-family: Source Sans Pro;
   font-style: normal;
   font-weight: normal;
@@ -67,7 +67,7 @@ form.form > div.group > input {
 }
 
 .btn,
-form.form > div.group > label {
+.group > label {
   text-transform: uppercase;
 }
 
@@ -81,7 +81,7 @@ button.btn {
 }
 
 button.btn:hover,
-form.form > div.group > input:focus {
+.group > input:focus {
   transform: translateY(-0.125rem);
   box-shadow: 0px 4px 0px #000000;
 }
@@ -91,17 +91,30 @@ form.form {
   flex-direction: column;
 }
 
-form.form > div.group {
+.group {
   display: flex;
   flex-direction: column;
   @apply pb-4;
 }
 
-form.form > div.group > label {
-  @apply pb-2;
+.group > *:not(:last-child) {
+  @apply mb-2;
 }
 
-form.form > div.group > input {
+.group > input {
   transition: all 200ms ease-in-out;
   @apply border-2 border-black rounded-3xl p-4 outline-none;
+}
+
+.group > *:not(input) {
+  @apply px-4;
+}
+
+.group.error > input {
+  @apply border-red-500;
+}
+
+.group.error > input:focus {
+  transform: translateY(-0.125rem);
+  box-shadow: 0px 4px 0px rgba(239, 68, 68, 1);
 }

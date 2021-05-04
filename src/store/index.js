@@ -96,15 +96,21 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    login({ commit }, email, password) {
-      commit("setUser", {
-        id: "12345",
-        email,
-        password,
-        name: "John Smith",
-      });
+    async login({ commit }, email, password) {
+      commit("setIsLoading", true);
+      return await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(email, password);
+          reject({ email: "your email is dumb" });
+        }, 2000);
+      })
+        .then(() => commit("setIsLoading", false))
+        .catch((errors) => {
+          commit("setIsLoading", false);
+          return Promise.reject(errors);
+        });
     },
-    logout({ commit }) {
+    async logout({ commit }) {
       commit("setUser", null);
     },
   },
