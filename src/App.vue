@@ -2,7 +2,7 @@
   <div id="app">
     <loading :isLoading="isLoading"></loading>
     <navbar></navbar>
-    <main class="pt-12">
+    <main class="pt-16">
       <router-view />
     </main>
   </div>

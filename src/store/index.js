@@ -5,7 +5,7 @@ import set from "date-fns/set";
 
 Vue.use(Vuex);
 
-function validatePassword(password) {
+export function validatePassword(password) {
   console.log(password);
   if (password.length < 8) return "Your password must be at least 8 characters";
   return "";
@@ -104,10 +104,8 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       commit("setIsLoading", true);
-      return await new Promise((resolve, reject) => {
+      return await new Promise((resolve) => {
         setTimeout(() => {
-          const response = validatePassword(password);
-          if (response) reject({ password: response });
           commit("setUser", { email, password });
           resolve();
         }, 2000);
