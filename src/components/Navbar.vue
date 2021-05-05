@@ -1,13 +1,13 @@
 <template>
   <div
-    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-transparent fixed top-0 left-1/2 transform -translate-x-1/2 z-40"
+    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-white fixed top-0 left-1/2 transform -translate-x-1/2 z-40"
     :class="{ 'pointer-events-none': isLoading }"
   >
     <div class="z-20 p-2 rounded">
       <router-link to="/"><h5>FedEmAt</h5></router-link>
     </div>
     <div v-if="authenticated" class="ml-auto">
-      <div class="md:hidden">
+      <div class="sm:hidden" id="mobile-menu">
         <div
           class="w-8 h-8 text-black relative z-20"
           @click="menuOpen = !menuOpen"
@@ -20,9 +20,9 @@
           :class="{ 'blob-open': menuOpen, 'blob-closed': !menuOpen }"
         ></blob>
       </div>
-      <div class="hidden md:block">
+      <div class="hidden sm:block" id="desktop-menu">
         <div
-          class="h-10 w-10 rounded-full relative cursor-pointer flex justify-center items-center bg-yellow-500"
+          class="h-10 w-10 rounded-full relative cursor-pointer flex justify-center items-center bg-yellow-500 focus:ring-2 focus:ring-black focus:ring-offset-2 outline-none"
           @click="menuOpen = !menuOpen"
         >
           EB
@@ -40,7 +40,7 @@
     <transition name="mobile-menu">
       <div
         v-if="menuOpen"
-        class="absolute z-20 w-screen top-32 left-0 md:hidden"
+        class="absolute z-20 w-screen top-32 left-0 sm:hidden"
       >
         <navbar-content :authenticated="authenticated"></navbar-content>
       </div>

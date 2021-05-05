@@ -1,12 +1,12 @@
 <template>
-  <div class="mt-8 px-8 md:px-0">
+  <div class="mt-8 px-8 shadow-sm:px-0">
     <span class="flex flex-col space-y-4 items-center">
       <h2 class="text-center">Welcome to FedEmAt</h2>
       <p>The world's best pet feeding tracking app</p>
       <p>Please login</p>
     </span>
     <form
-      class="form mx-auto w-auto md:w-1/2 lg:w-1/3"
+      class="form mx-auto w-auto sm:w-3/4 md:w-1/2 lg:w-1/3"
       @submit.prevent="submit"
     >
       <div class="group" :class="{ error: errors.email }">
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Login",
@@ -52,6 +52,14 @@ export default {
       password: "",
       errors: {},
     };
+  },
+  computed: {
+    ...mapGetters(["authenticated"]),
+  },
+  created() {
+    if (this.authenticated) {
+      this.$router.push({ name: "Home" });
+    }
   },
   methods: {
     submit() {

@@ -1,3 +1,7 @@
+body {
+  font-family: Source Sans Pro;
+}
+
 h1 {
   font-family: Cabin;
   font-style: italic;
@@ -50,14 +54,19 @@ p {
   font-family: Source Sans Pro;
   font-style: normal;
   font-weight: normal;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 21px;
   letter-spacing: 0.05em;
 }
 
+a {
+  @apply hover:underline focus:underline;
+}
+
 .btn,
 .group > label,
-.group > input {
+.group > input,
+a {
   font-family: Source Sans Pro;
   font-style: normal;
   font-weight: normal;
@@ -76,7 +85,7 @@ p {
 }
 
 button.btn {
-  @apply flex justify-center items-center py-4 px-14 border-2 border-black rounded-3xl outline-none;
+  @apply flex justify-center items-center py-4 px-14 border-2 border-black rounded-3xl outline-none focus:ring-2 focus:ring-black focus:ring-offset-2;
   transition: all 200ms ease-in-out;
 }
 
