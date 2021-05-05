@@ -8,12 +8,9 @@
     </div>
     <div v-if="authenticated" class="ml-auto">
       <div class="sm:hidden" id="mobile-menu">
-        <div
-          class="w-8 h-8 text-black relative z-20"
-          @click="menuOpen = !menuOpen"
-        >
-          <hamburger v-if="menuOpen === false"></hamburger>
-          <close v-else></close>
+        <div class="w-8 h-8 text-black relative z-20" @click="toggleMenu">
+          <close v-if="menuOpen"></close>
+          <hamburger v-else></hamburger>
         </div>
         <blob
           class="fixed text-yellow-500 z-10 blob"
@@ -23,7 +20,7 @@
       <div class="hidden sm:block" id="desktop-menu">
         <div
           class="h-10 w-10 rounded-full relative cursor-pointer flex justify-center items-center bg-yellow-500 focus:ring-2 focus:ring-black focus:ring-offset-2 outline-none"
-          @click="menuOpen = !menuOpen"
+          @click="toggleMenu"
         >
           EB
         </div>
@@ -31,6 +28,7 @@
           <div
             v-if="menuOpen"
             class="absolute mt-0.5 right-0 py-4 px-8 mr-8 bg-white rounded border-black border-2"
+            v-on-clickaway="toggleMenu"
           >
             <navbar-content :authenticated="authenticated"></navbar-content>
           </div>
@@ -41,6 +39,7 @@
       <div
         v-if="menuOpen"
         class="absolute z-20 w-screen top-32 left-0 sm:hidden"
+        v-on-clickaway="toggleMenu"
       >
         <navbar-content :authenticated="authenticated"></navbar-content>
       </div>
@@ -54,9 +53,11 @@ import Hamburger from "./Hamburger.vue";
 import Close from "./Close.vue";
 import Blob from "./Blob.vue";
 import NavbarContent from "./NavbarContent";
+import { mixin as clickaway } from "vue-clickaway";
 
 export default {
   name: "Navbar",
+  mixins: [clickaway],
   components: { Hamburger, Blob, Close, NavbarContent },
   data() {
     return {
@@ -72,6 +73,11 @@ export default {
   computed: {
     ...mapState(["user", "isLoading"]),
     ...mapGetters(["authenticated"]),
+  },
+  methods: {
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
+    },
   },
 };
 </script>

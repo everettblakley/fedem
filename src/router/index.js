@@ -6,6 +6,11 @@ import Logout from "../views/Logout.vue";
 
 Vue.use(VueRouter);
 
+function checkAuthentication(to, from, next) {
+  console.log(this);
+  next();
+}
+
 const routes = [
   {
     path: "/",
@@ -22,6 +27,7 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    beforeEnter: checkAuthentication,
   },
   {
     path: "/logout",
