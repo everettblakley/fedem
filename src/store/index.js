@@ -14,11 +14,7 @@ export function validatePassword(password) {
 export default new Vuex.Store({
   state: {
     isLoading: false,
-    user: {
-      uid: "12345",
-      email: "something@gmail.com",
-      name: "John Smith",
-    },
+    user: null,
     groups: [
       {
         name: "Group 1",

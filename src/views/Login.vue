@@ -1,8 +1,7 @@
 <template>
   <div class="mt-8 px-8 sm:px-0">
     <span class="flex flex-col space-y-4 items-center text-center">
-      <h3>Welcome to FedEmAt</h3>
-      <p>The world's best pet feeding app</p>
+      <h3 class="hard-shadow-orange">Welcome back</h3>
       <p>Please login</p>
     </span>
     <form
