@@ -49,9 +49,9 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import Hamburger from "./Hamburger.vue";
-import Close from "./Close.vue";
-import Blob from "./Blob.vue";
+import Hamburger from "./icons/Hamburger.vue";
+import Close from "./icons/Close.vue";
+import Blob from "./illustrations/Blob.vue";
 import NavbarContent from "./NavbarContent";
 import { mixin as clickaway } from "vue-clickaway";
 

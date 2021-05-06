@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import Blob from "./Blob.vue";
-import Dog from "./Dog.vue";
-import Cat from "./Cat.vue";
+import Blob from "./illustrations/Blob.vue";
+import Dog from "./illustrations/Dog.vue";
+import Cat from "./illustrations/Cat.vue";
 export default {
   name: "CornerDoodle",
   props: ["alignment", "type"],

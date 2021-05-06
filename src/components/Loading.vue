@@ -15,7 +15,7 @@
   </transition>
 </template>
 <script>
-import Blob from "./Blob.vue";
+import Blob from "./illustrations/Blob.vue";
 export default {
   name: "Loading",
   components: { Blob },
