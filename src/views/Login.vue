@@ -8,31 +8,28 @@
       class="form mx-auto w-auto sm:w-3/4 md:w-1/2 lg:w-1/3"
       @submit.prevent="submit"
     >
-      <div class="group" :class="{ error: errors.email }">
-        <label for="email">Email</label>
-        <input type="email" v-model="email" name="email" id="email" required />
-        <small v-if="errors.email" class="text-sm text-red-500">{{
-          errors.email
-        }}</small>
-      </div>
+      <text-input
+        v-model="email"
+        :error="errors.email"
+        label="Email"
+        type="email"
+        id="email"
+      />
 
-      <div class="group" :class="{ error: errors.password }">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          v-model="password"
-          name="password"
-          id="password"
-          required
-        />
-        <small v-if="errors.password" class="text-sm text-red-500">{{
-          errors.password
-        }}</small>
-      </div>
+      <text-input
+        v-model="password"
+        :error="errors.password"
+        label="Password"
+        type="password"
+        id="password"
+      />
       <button class="btn mt-4" type="submit">Login</button>
     </form>
 
-    <div class="text-center pt-8">
+    <div class="flex flex-col items-center space-y-4 pt-8">
+      <router-link to="/forgot-password" class="btn hover:underline"
+        >Forgot Password</router-link
+      >
       <router-link to="/sign-up" class="btn hover:underline"
         >Sign up</router-link
       >
@@ -42,7 +39,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-
+import TextInput from "../components/input/TextInput.vue";
 export default {
   name: "Login",
   data() {
@@ -71,5 +68,6 @@ export default {
     },
     ...mapActions(["login"]),
   },
+  components: { TextInput },
 };
 </script>
