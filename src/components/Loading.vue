@@ -4,21 +4,15 @@
       v-if="isLoading"
       class="fixed w-screen h-screen flex justify-center items-center bg-black bg-opacity-50 pointer-events-none z-50"
     >
-      <blob class="max-w-xs text-yellow-500">
-        <h6
-          class="text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse"
-        >
-          Loading...
-        </h6>
-      </blob>
+      <spinner class="w-20 h-20 text-yellow-500 shadow-sm animate-spin" />
     </div>
   </transition>
 </template>
 <script>
-import Blob from "./illustrations/Blob.vue";
+import Spinner from "./icons/Spinner.vue";
 export default {
   name: "Loading",
-  components: { Blob },
+  components: { Spinner },
   props: {
     isLoading: {
       type: Boolean,

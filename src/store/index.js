@@ -5,12 +5,6 @@ import set from "date-fns/set";
 
 Vue.use(Vuex);
 
-export function validatePassword(password) {
-  console.log(password);
-  if (password.length < 8) return "Your password must be at least 8 characters";
-  return "";
-}
-
 export default new Vuex.Store({
   state: {
     isLoading: false,

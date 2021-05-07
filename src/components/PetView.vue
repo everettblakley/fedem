@@ -27,7 +27,10 @@
         :label="food.name"
       ></progress-bar>
     </div>
-    <button class="btn bg-yellow-500 mt-auto mx-auto z-20" @click="submitForm">
+    <button
+      class="btn bg-yellow-500 mt-auto mx-auto z-20"
+      @click="setActivePet(pet)"
+    >
       Add Feeding
     </button>
   </div>
@@ -42,7 +45,13 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "PetView",
-  props: { pet: Object, alignment: { type: String, default: "left" } },
+  props: {
+    pet: Object,
+    alignment: { type: String, default: "left" },
+    setActivePet: {
+      type: Function,
+    },
+  },
   data() {
     return {
       feedings: [],

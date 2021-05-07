@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-white fixed top-0 left-1/2 transform -translate-x-1/2 z-40"
+    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-white fixed top-0 left-1/2 transform -translate-x-1/2 z-40 shawdow"
     :class="{ 'pointer-events-none': isLoading }"
   >
     <div class="z-20 p-2 rounded">

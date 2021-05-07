@@ -1,10 +1,18 @@
 <template>
-  <div id="app">
+  <div id="app h-screen">
     <loading :isLoading="isLoading"></loading>
     <navbar></navbar>
-    <main class="pt-16">
+    <main class="pt-16 min-h-screen">
       <router-view />
     </main>
+    <footer
+      class="bg-yellow-500 p-4 text-black flex justify-center items-center"
+    >
+      &copy;
+      <a class="ml-1" href="https://everettblakley.ca" target="_blank">
+        Everett Blakley</a
+      >
+    </footer>
   </div>
 </template>
 
@@ -26,10 +34,6 @@ export default {
 </script>
 
 <style>
-#app {
-  height: 100%;
-}
-
 main {
   overflow: auto;
   height: 100%;
