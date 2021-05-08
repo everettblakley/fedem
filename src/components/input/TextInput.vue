@@ -16,7 +16,7 @@ export default {
   name: "TextInput",
   props: {
     value: {
-      type: String,
+      type: [String, Number],
       required: true,
     },
     label: {
