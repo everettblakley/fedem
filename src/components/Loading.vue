@@ -2,7 +2,8 @@
   <transition name="fade">
     <div
       v-if="isLoading"
-      class="fixed w-screen h-screen flex justify-center items-center bg-black bg-opacity-50 pointer-events-none z-50"
+      class="fixed w-screen h-screen flex justify-center items-center bg-black bg-opacity-50 pointer-events-none z-9999"
+      @click="capture"
     >
       <spinner class="w-20 h-20 text-yellow-500 shadow-sm animate-spin" />
     </div>
@@ -19,9 +20,17 @@ export default {
       default: false,
     },
   },
+  methods: {
+    capture(event) {
+      event.preventDefault();
+    },
+  },
 };
 </script>
 <style scoped>
+.z-9999 {
+  z-index: 9999;
+}
 .fade-enter,
 .fade-leave-to {
   opacity: 0;

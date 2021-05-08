@@ -16,18 +16,20 @@
           <div class="flex items-end">
             <text-input
               class="min-w-0 flex-1 mr-4"
-              label="How much did you feed 'em?"
+              label="How much?"
               type="number"
               id="amount"
+              :error="errors.amount"
               v-model="feeding.amount"
             />
-            <text-input
-              class="min-w-0 flex-1"
-              label="Unit"
-              type="text"
-              id="unit"
-              v-model="feeding.unit"
-            />
+            <div class="group">
+              <label for="unit">Unit</label>
+              <select name="unit" id="unit" v-model="feeding.unit">
+                <option value="cups">Cups</option>
+                <option value="tbsp">Tablespoon</option>
+                <option value="tsp">Teaspoon</option>
+              </select>
+            </div>
           </div>
           <div class="flex justify-between mt-4 space-x-4 items-end">
             <button class="btn flex-1" @click="closed" type="button">
@@ -43,18 +45,31 @@
   </modal>
 </template>
 <script>
+import { mapMutations, mapActions } from "vuex";
 import Modal from "./Modal.vue";
 import TextInput from "./input/TextInput.vue";
 import format from "date-fns/format";
+
+const nullFeeding = (pet) => ({
+  timestamp: new Date(),
+  pet: { ...pet },
+  amount: 0,
+  unit: "cups",
+});
+
 export default {
   name: "NewFeeding",
+  props: {
+    pet: {
+      type: Object,
+    },
+  },
   data() {
     return {
-      feeding: {
-        timestamp: new Date(),
-        pet: this.pet,
-        amount: 0,
-        unit: "cups",
+      feeding: nullFeeding(this.pet),
+      errors: {
+        timestamp: "",
+        amount: "",
       },
     };
   },
@@ -77,13 +92,28 @@ export default {
       const time = event.target.value;
       this.feeding.timestamp = new Date(`${this.date} ${time}`);
     },
-    submit() {
-      console.log({ ...this.feeding });
+    validate() {
+      return { timestamp: "", amount: "" };
     },
+    async submit() {
+      this.setIsLoading(true);
+      await this.sleep(2000);
+      const errors = this.validate();
+      if (Object.values(errors).every((v) => !v)) {
+        console.log({ ...this.feeding });
+      } else {
+        this.errors = errors;
+      }
+      this.setIsLoading(false);
+    },
+    ...mapActions(["sleep"]),
+    ...mapMutations(["setIsLoading"]),
   },
-  props: {
-    pet: {
-      type: Object,
+  watch: {
+    pet: function (newPet) {
+      if (newPet) {
+        this.feeding = nullFeeding(newPet);
+      }
     },
   },
   components: { Modal, TextInput },

@@ -66,6 +66,7 @@ a {
 .btn,
 .group > label,
 .group > input,
+.group > select,
 a {
   font-family: Source Sans Pro;
   font-style: normal;
@@ -90,7 +91,8 @@ button.btn {
 }
 
 button.btn:hover,
-.group > input:focus {
+.group > input:focus,
+.group > select:focus {
   transform: translateY(-0.125rem);
   box-shadow: 0px 4px 0px #000000;
 }
@@ -110,8 +112,9 @@ form.form {
   @apply mb-2;
 }
 
-.group > input {
-  transition: all 200ms ease-in-out;
+.group > input,
+.group > select {
+  transition: transform 200ms ease-in-out;
   @apply border-2 border-black rounded-3xl px-4 py-3 sm:py-4 outline-none;
 }
 
@@ -123,7 +126,7 @@ form.form {
   @apply border-red-500;
 }
 
-.group.error > input:focus {
-  transform: translateY(-0.125rem);
+.group.error > input:focus,
+.group.error > select:focus {
   box-shadow: 0px 4px 0px rgba(239, 68, 68, 1);
 }

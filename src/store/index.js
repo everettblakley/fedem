@@ -88,6 +88,7 @@ export default new Vuex.Store({
       state.user = user;
     },
     setIsLoading(state, value) {
+      console.log(`Is Loading: ${value}`);
       state.isLoading = value;
     },
   },
@@ -108,6 +109,9 @@ export default new Vuex.Store({
     },
     async logout({ commit }) {
       commit("setUser", null);
+    },
+    sleep(_, ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
     },
   },
   getters: {
