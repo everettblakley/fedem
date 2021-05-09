@@ -20,14 +20,14 @@ export default new Vuex.Store({
             max: 2,
             feedings: [
               {
-                name: "kibble",
+                food: "kibble",
                 amount: 1,
                 timestamp: sub(new Date(), { days: 1 }),
               },
               {
-                name: "kibble",
+                food: "kibble",
                 amount: 1.5,
-                timestamp: sub(new Date(), { days: 1 }),
+                timestamp: sub(new Date(), { hours: 1 }),
               },
             ],
           },
@@ -41,12 +41,17 @@ export default new Vuex.Store({
             max: 1.5,
             feedings: [
               {
-                name: "kibble",
+                food: "wet",
+                amount: 0.025,
+                timestamp: new Date(),
+              },
+              {
+                food: "kibble",
                 amount: 0.25,
                 timestamp: sub(new Date(), { days: 1 }),
               },
               {
-                name: "kibble",
+                food: "kibble",
                 amount: 0.5,
                 timestamp: set(new Date(), { hours: 16, minutes: 4 }),
               },
@@ -59,17 +64,17 @@ export default new Vuex.Store({
             max: 2.5,
             feedings: [
               {
-                name: "kibble",
+                food: "kibble",
                 amount: 1,
                 timestamp: set(new Date(), { hours: 8, minutes: 30 }),
               },
               {
-                name: "kibble",
+                food: "kibble",
                 amount: 1,
                 timestamp: set(new Date(), { hours: 12, minutes: 12 }),
               },
               {
-                name: "kibble",
+                food: "kibble",
                 amount: 1,
                 timestamp: sub(new Date(), { minutes: 30 }),
               },

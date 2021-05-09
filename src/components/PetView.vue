@@ -22,7 +22,7 @@
       <progress-bar
         v-for="food in pet.food"
         :key="food.name"
-        :progress="0"
+        :progress="progress(food)"
         :feedings="getFeedings(food.name)"
         :label="food.name"
       ></progress-bar>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import isSameDay from "date-fns/isSameDay";
+import isToday from "date-fns/isToday";
 import formatRelative from "date-fns/formatRelative";
 import CornerDoodle from "./CornerDoodle.vue";
 import ProgressBar from "./ProgressBar.vue";
@@ -86,20 +86,6 @@ export default {
         timestamp: formatRelative(last.timestamp, new Date()),
       };
     },
-    /** @returns {any} */
-    totalFed() {
-      const { feedings, max } = this.pet;
-      if (!feedings || !max) return null;
-      const today = new Date();
-      const todaysFeedings = feedings.filter((f) =>
-        isSameDay(f.timestamp, today)
-      );
-      const total = todaysFeedings.reduce(
-        (total, current) => total + current.amount,
-        0
-      );
-      return { percent: (total / max) * 100, value: total };
-    },
   },
   methods: {
     amountString(amount) {
@@ -110,8 +96,21 @@ export default {
       this.setIsLoading(true);
       setTimeout(() => this.setIsLoading(false), 1000);
     },
+    progress(food) {
+      const feedings = this.getFeedings(food.name);
+      const todaysFeedings = feedings.filter((feeding) =>
+        isToday(feeding.timestamp)
+      );
+      const total = todaysFeedings.reduce(
+        (total, current) => (total += current.amount),
+        0
+      );
+      const max = this.pet.food.find((f) => f.name === food.name)?.max;
+      if (!max) return 0;
+      return (total / max) * 100;
+    },
     getFeedings(name) {
-      return this.pet.feedings.filter((feeding) => feeding.name === name);
+      return this.pet.feedings.filter((feeding) => feeding.food === name);
     },
     ...mapMutations(["setIsLoading"]),
   },
