@@ -20,6 +20,7 @@
   </transition>
 </template>
 <script>
+import { mapState } from "vuex";
 import Close from "./icons/Close.vue";
 export default {
   name: "Modal",
@@ -28,9 +29,14 @@ export default {
       contentVisible: false,
     };
   },
+  computed: {
+    ...mapState(["isLoading"]),
+  },
   methods: {
     closeModal() {
-      this.contentVisible = false;
+      if (!this.isLoading) {
+        this.contentVisible = false;
+      }
     },
     emitEvent() {
       this.$emit("close");

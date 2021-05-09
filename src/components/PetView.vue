@@ -14,7 +14,8 @@
       <div>
         <h6>Last feeding:</h6>
         <p>
-          {{ lastFeeding.amount }} {{ amountString(lastFeeding.amount) }},
+          {{ lastFeeding.amount }} {{ amountString(lastFeeding.amount) }} of
+          {{ lastFeeding.food }},
           {{ lastFeeding.timestamp }}
         </p>
       </div>
@@ -29,6 +30,7 @@
     </div>
     <button
       class="btn bg-yellow-500 mt-auto mx-auto z-20"
+      :disabled="isLoading"
       @click="setActivePet(pet)"
     >
       Add Feeding
@@ -41,7 +43,7 @@ import isToday from "date-fns/isToday";
 import formatRelative from "date-fns/formatRelative";
 import CornerDoodle from "./CornerDoodle.vue";
 import ProgressBar from "./ProgressBar.vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "PetView",
@@ -83,9 +85,11 @@ export default {
       if (!last) return nullFeeding;
       return {
         amount: last.amount,
+        food: last.food,
         timestamp: formatRelative(last.timestamp, new Date()),
       };
     },
+    ...mapState(["isLoading"]),
   },
   methods: {
     amountString(amount) {

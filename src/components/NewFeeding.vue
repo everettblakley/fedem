@@ -4,61 +4,63 @@
       <div v-if="!!pet" class="flex flex-col items-center">
         <h5>Feeding {{ pet.name }}</h5>
         <form class="form my-4 w-full" @submit.prevent="submit">
-          <div class="group justify-end">
-            <label for="datetime">When did you feed 'em at?</label>
-            <div
-              class="flex border-2 border-black p-3 rounded-3xl justify-between"
-            >
-              <input type="date" :value="date" @change="setDate" />
-              <input type="time" :value="time" @change="setTime" />
-            </div>
-          </div>
-          <div class="group" v-if="pet && pet.food.length > 1">
-            <label for="food">Food Type</label>
-            <select name="food" id="food" v-model="feeding.food">
-              <option disabled value="">Select a food type</option>
-              <option
-                v-for="food in pet.food"
-                :key="food.name"
-                :value="food.name"
+          <fieldset :disabled="isLoading">
+            <div class="group justify-end">
+              <label for="datetime">When did you feed 'em at?</label>
+              <div
+                class="flex border-2 border-black p-3 rounded-3xl justify-between"
               >
-                {{ food.name }}
-              </option>
-            </select>
-          </div>
-          <div class="flex items-end">
-            <text-input
-              class="min-w-0 flex-1 mr-4"
-              label="How much?"
-              type="number"
-              id="amount"
-              :error="errors.amount"
-              v-model="feeding.amount"
-            />
-            <div class="group">
-              <label for="unit">Unit</label>
-              <select name="unit" id="unit" v-model="feeding.unit">
-                <option value="cups">Cups</option>
-                <option value="tbsp">Tablespoon</option>
-                <option value="tsp">Teaspoon</option>
+                <input type="date" :value="date" @change="setDate" />
+                <input type="time" :value="time" @change="setTime" />
+              </div>
+            </div>
+            <div class="group" v-if="pet && pet.food.length > 1">
+              <label for="food">Food Type</label>
+              <select name="food" id="food" v-model="feeding.food">
+                <option disabled value="">Select a food type</option>
+                <option
+                  v-for="food in pet.food"
+                  :key="food.name"
+                  :value="food.name"
+                >
+                  {{ food.name }}
+                </option>
               </select>
             </div>
-          </div>
-          <div class="flex justify-between mt-4 space-x-4 items-end">
-            <button class="btn flex-1" @click="closed" type="button">
-              Cancel
-            </button>
-            <button class="btn flex-1 bg-yellow-500" type="submit=">
-              Submit
-            </button>
-          </div>
+            <div class="flex items-end">
+              <text-input
+                class="min-w-0 flex-1 mr-4"
+                label="How much?"
+                type="number"
+                id="amount"
+                :error="errors.amount"
+                v-model="feeding.amount"
+              />
+              <div class="group">
+                <label for="unit">Unit</label>
+                <select name="unit" id="unit" v-model="feeding.unit">
+                  <option value="cups">Cups</option>
+                  <option value="tbsp">Tablespoon</option>
+                  <option value="tsp">Teaspoon</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex justify-between mt-4 space-x-4 items-end">
+              <button class="btn flex-1" @click="closed" type="button">
+                Cancel
+              </button>
+              <button class="btn flex-1 bg-yellow-500" type="submit=">
+                Submit
+              </button>
+            </div>
+          </fieldset>
         </form>
       </div>
     </template>
   </modal>
 </template>
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapActions, mapState } from "vuex";
 import Modal from "./Modal.vue";
 import TextInput from "./input/TextInput.vue";
 import format from "date-fns/format";
@@ -96,6 +98,7 @@ export default {
     time() {
       return format(this.feeding.timestamp, "kk:mm");
     },
+    ...mapState(["isLoading"]),
   },
   methods: {
     setDate(event) {

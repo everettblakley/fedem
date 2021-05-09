@@ -30,7 +30,7 @@ export default {
     },
     /** @returns { string } */
     overflowStyle() {
-      return `width: ${100 - this.regular}%`;
+      return `width: ${Math.ceil(100 - this.regular)}%`;
     },
   },
 };
