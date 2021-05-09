@@ -24,7 +24,7 @@
         v-for="food in pet.food"
         :key="food.name"
         :progress="progress(food)"
-        :feedings="getFeedings(food.name)"
+        :max="getMax(food.name)"
         :label="food.name"
       ></progress-bar>
     </div>
@@ -70,13 +70,6 @@ export default {
     );
   },
   computed: {
-    /** @returns { string } */
-    progressType() {
-      const { percent } = this.totalFed;
-      if (!percent || percent < 75) return "is-success";
-      if (percent >= 75 && percent < 90) return "is-warning";
-      return "is-danger";
-    },
     /** @returns {any} */
     lastFeeding() {
       const nullFeeding = { amount: 0, timestamp: new Date() };
@@ -109,12 +102,15 @@ export default {
         (total, current) => (total += current.amount),
         0
       );
-      const max = this.pet.food.find((f) => f.name === food.name)?.max;
+      const max = this.getMax(food.name);
       if (!max) return 0;
       return (total / max) * 100;
     },
     getFeedings(name) {
       return this.pet.feedings.filter((feeding) => feeding.food === name);
+    },
+    getMax(name) {
+      return this.pet.food.find((f) => f.name === name)?.max;
     },
     ...mapMutations(["setIsLoading"]),
   },
