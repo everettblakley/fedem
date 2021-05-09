@@ -13,6 +13,19 @@
               <input type="time" :value="time" @change="setTime" />
             </div>
           </div>
+          <div class="group" v-if="pet && pet.food.length > 1">
+            <label for="food">Food Type</label>
+            <select name="food" id="food" v-model="feeding.food">
+              <option disabled value="">Select a food type</option>
+              <option
+                v-for="food in pet.food"
+                :key="food.name"
+                :value="food.name"
+              >
+                {{ food.name }}
+              </option>
+            </select>
+          </div>
           <div class="flex items-end">
             <text-input
               class="min-w-0 flex-1 mr-4"
@@ -54,6 +67,7 @@ const nullFeeding = (pet) => ({
   timestamp: new Date(),
   pet: { ...pet },
   amount: 0,
+  food: null,
   unit: "cups",
 });
 
@@ -92,6 +106,12 @@ export default {
       const time = event.target.value;
       this.feeding.timestamp = new Date(`${this.date} ${time}`);
     },
+    setFood(event) {
+      const { value } = event.target.selectedOptions[0];
+      const newFood = this.pet.food.find((food) => food.name === value);
+      console.log(newFood);
+      this.feeding.food = { ...newFood };
+    },
     validate() {
       return { timestamp: "", amount: "" };
     },
@@ -112,7 +132,11 @@ export default {
   watch: {
     pet: function (newPet) {
       if (newPet) {
-        this.feeding = nullFeeding(newPet);
+        const feeding = nullFeeding(newPet);
+        if (newPet.food.length === 1) {
+          feeding.food = newPet.food[0].name;
+        }
+        this.feeding = feeding;
       }
     },
   },
