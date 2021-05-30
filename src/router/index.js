@@ -5,13 +5,9 @@ import Login from "../views/Login.vue";
 import SignUp from "../views/SignUp.vue";
 import Logout from "../views/Logout.vue";
 import NotFound from "../views/NotFound.vue";
+import Profile from "../views/Profile.vue";
 
 Vue.use(VueRouter);
-
-function checkAuthentication(to, from, next) {
-  console.log(this);
-  next();
-}
 
 const routes = [
   {
@@ -29,7 +25,6 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
-    beforeEnter: checkAuthentication,
   },
   {
     path: "/logout",
@@ -40,6 +35,11 @@ const routes = [
     path: "/sign-up",
     name: "SignUp",
     component: SignUp,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
   {
     path: "*",

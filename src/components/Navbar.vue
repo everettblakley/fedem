@@ -4,7 +4,7 @@
     :class="{ 'pointer-events-none': isLoading }"
   >
     <div class="z-20 p-2 rounded">
-      <router-link to="/"><h5>FedEmAt</h5></router-link>
+      <router-link to="/" tabindex="1"><h5>FedEmAt</h5></router-link>
     </div>
     <div v-if="authenticated" class="ml-auto">
       <div class="sm:hidden" id="mobile-menu">
@@ -21,6 +21,7 @@
         <div
           class="h-10 w-10 rounded-full relative cursor-pointer flex justify-center items-center bg-yellow-500 focus:ring-2 focus:ring-black focus:ring-offset-2 outline-none"
           @click="toggleMenu"
+          tabindex="0"
         >
           EB
         </div>

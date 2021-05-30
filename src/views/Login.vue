@@ -38,15 +38,19 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import TextInput from "../components/input/TextInput.vue";
+import { emailValidator, passwordValidator } from "../utilities/validators";
 export default {
   name: "Login",
   data() {
     return {
       email: "",
       password: "",
-      errors: {},
+      errors: {
+        email: "",
+        password: "",
+      },
     };
   },
   computed: {
@@ -58,15 +62,35 @@ export default {
     }
   },
   methods: {
-    submit() {
-      console.log(this.email, this.password);
-      this.login({ email: this.email, password: this.password })
-        .then(() => this.$router.replace({ name: "Home" }))
-        .catch((errors) => {
-          this.errors = errors;
-        });
+    validate() {
+      this.errors = {
+        email: emailValidator(this.email),
+        password: passwordValidator(this.password),
+      };
+      return Object.values(this.errors).every((v) => !v);
     },
-    ...mapActions(["login"]),
+    async submit() {
+      if (!this.validate()) return;
+      this.errors = {};
+      this.$store.commit("setIsLoading", true);
+      const { user, session, error } = await this.$supabase.auth.signIn({
+        email: this.email,
+        password: this.password,
+      });
+      this.$store.commit("setIsLoading", false);
+      if (error) {
+        console.log(error);
+        const { message } = error;
+        this.errors = {
+          email: message,
+          password: message,
+        };
+      } else {
+        this.$store.commit("setUser", user);
+        this.$store.comment("setSession", session);
+        this.$router.push({ name: "Home" });
+      }
+    },
   },
   components: { TextInput },
 };

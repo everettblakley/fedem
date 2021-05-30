@@ -8,7 +8,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isLoading: false,
-    user: null,
+    session: null,
+    user: {
+      name: "everett",
+      email: "everett@everett.com",
+    },
     groups: [
       {
         name: "Group 1",
@@ -93,25 +97,13 @@ export default new Vuex.Store({
       state.user = user;
     },
     setIsLoading(state, value) {
-      console.log(`Is Loading: ${value}`);
       state.isLoading = value;
+    },
+    setSession(state, session) {
+      state.session = session;
     },
   },
   actions: {
-    async login({ commit }, { email, password }) {
-      commit("setIsLoading", true);
-      return await new Promise((resolve) => {
-        setTimeout(() => {
-          commit("setUser", { email, password });
-          resolve();
-        }, 2000);
-      })
-        .then(() => commit("setIsLoading", false))
-        .catch((errors) => {
-          commit("setIsLoading", false);
-          return Promise.reject(errors);
-        });
-    },
     async logout({ commit }) {
       commit("setUser", null);
     },
