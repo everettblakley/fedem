@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full mx-auto h-10 flex items-center px-8 py-8 bg-white fixed top-0 left-1/2 transform -translate-x-1/2 z-40 shawdow"
+    class="fixed top-0 z-40 flex items-center w-full h-10 px-8 py-8 mx-auto transform -translate-x-1/2 bg-white left-1/2 shawdow"
     :class="{ 'pointer-events-none': isLoading }"
   >
     <div class="z-20 p-2 rounded">
@@ -8,18 +8,18 @@
     </div>
     <div v-if="authenticated" class="ml-auto">
       <div class="sm:hidden" id="mobile-menu">
-        <div class="w-8 h-8 text-black relative z-20" @click="toggleMenu">
+        <div class="relative z-20 w-8 h-8 text-black" @click="toggleMenu">
           <close v-if="menuOpen"></close>
           <hamburger v-else></hamburger>
         </div>
         <blob
-          class="fixed text-yellow-500 z-10 blob"
+          class="fixed z-10 text-yellow-500 blob"
           :class="{ 'blob-open': menuOpen, 'blob-closed': !menuOpen }"
         ></blob>
       </div>
       <div class="hidden sm:block" id="desktop-menu">
         <div
-          class="h-10 w-10 rounded-full relative cursor-pointer flex justify-center items-center bg-yellow-500 focus:ring-2 focus:ring-black focus:ring-offset-2 outline-none"
+          class="relative flex items-center justify-center w-10 h-10 bg-yellow-500 rounded-full outline-none cursor-pointer focus:ring-2 focus:ring-black focus:ring-offset-2"
           @click="toggleMenu"
           tabindex="0"
         >
@@ -29,7 +29,6 @@
           <div
             v-if="menuOpen"
             class="absolute mt-0.5 right-0 py-4 px-8 mr-8 bg-white rounded border-black border-2"
-            v-on-clickaway="toggleMenu"
           >
             <navbar-content :authenticated="authenticated"></navbar-content>
           </div>
@@ -39,8 +38,7 @@
     <transition name="mobile-menu">
       <div
         v-if="menuOpen"
-        class="absolute z-20 w-screen top-32 left-0 sm:hidden"
-        v-on-clickaway="toggleMenu"
+        class="absolute left-0 z-20 w-screen top-32 sm:hidden"
       >
         <navbar-content :authenticated="authenticated"></navbar-content>
       </div>
@@ -54,11 +52,9 @@ import Hamburger from "./icons/Hamburger.vue";
 import Close from "./icons/Close.vue";
 import Blob from "./illustrations/Blob.vue";
 import NavbarContent from "./NavbarContent";
-import { mixin as clickaway } from "vue-clickaway";
 
 export default {
   name: "Navbar",
-  mixins: [clickaway],
   components: { Hamburger, Blob, Close, NavbarContent },
   data() {
     return {

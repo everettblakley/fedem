@@ -38,10 +38,7 @@ const routes = [
     name: "Profile",
     component: Profile,
   },
-  {
-    path: "*",
-    component: NotFound,
-  },
+  { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 
 const router = createRouter({

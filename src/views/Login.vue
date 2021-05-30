@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-8 px-8 sm:px-0">
-    <span class="flex flex-col space-y-4 items-center text-center">
+  <div class="px-8 mt-8 sm:px-0">
+    <span class="flex flex-col items-center space-y-4 text-center">
       <h3 class="hard-shadow-orange">Welcome back</h3>
       <p>Please login</p>
     </span>
     <form
-      class="form mx-auto w-auto sm:w-3/4 md:w-1/2 lg:w-1/3"
+      class="w-auto mx-auto form sm:w-3/4 md:w-1/2 lg:w-1/3"
       @submit.prevent="submit"
     >
       <text-input
@@ -23,10 +23,10 @@
         type="password"
         id="password"
       />
-      <button class="btn mt-4" type="submit">Login</button>
+      <button class="mt-4 btn" type="submit">Login</button>
     </form>
 
-    <div class="flex flex-col items-center space-y-4 pt-8">
+    <div class="flex flex-col items-center pt-8 space-y-4">
       <router-link to="/forgot-password" class="btn hover:underline"
         >Forgot Password</router-link
       >
@@ -73,10 +73,11 @@ export default {
       if (!this.validate()) return;
       this.errors = {};
       this.$store.commit("setIsLoading", true);
-      const { user, session, error } = await this.$supabase.auth.signIn({
-        email: this.email,
-        password: this.password,
-      });
+      const { user, session, error } = {
+        user: undefined,
+        session: undefined,
+        error: "Nah brah, not yet",
+      };
       this.$store.commit("setIsLoading", false);
       if (error) {
         console.log(error);
