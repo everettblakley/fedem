@@ -1,13 +1,13 @@
 <template>
   <div
-    class="border-2 border-black rounded-2xl p-8 w-full h-auto relative overflow-hidden flex flex-col"
+    class="relative flex flex-col w-full h-auto p-8 overflow-hidden border-2 border-black rounded-2xl"
   >
     <corner-doodle
       :alignment="alignment"
       :type="pet.type"
-      class="absolute top-0 right-0 w-full h-full z-0"
+      class="absolute top-0 right-0 z-0 w-full h-full"
     ></corner-doodle>
-    <div class="flex flex-col justify-between space-y-8 mb-8 z-10">
+    <div class="z-10 flex flex-col justify-between mb-8 space-y-8">
       <h3 class="hard-shadow-orange">
         {{ pet.name }}
       </h3>
@@ -29,7 +29,7 @@
       ></progress-bar>
     </div>
     <button
-      class="btn bg-yellow-500 mt-auto mx-auto z-20"
+      class="z-20 mx-auto mt-auto bg-yellow-500 btn"
       :disabled="isLoading"
       @click="setActivePet(pet)"
     >
@@ -65,7 +65,8 @@ export default {
   },
   mounted() {
     if (!this.pet.feedings) return;
-    this.feedings = this.pet.feedings.sort((a, b) =>
+    const feedings = [...this.pet.feedings];
+    this.feedings = feedings.sort((a, b) =>
       a.timestamp < b.timestamp ? 1 : a.timestamp > b.timestamp ? -1 : 0
     );
   },

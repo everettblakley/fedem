@@ -1,19 +1,19 @@
 <template>
   <transition name="backdrop" @enter="contentVisible = true">
     <div
-      class="fixed top-0 bottom-0 left-0 right-0 w-screen h-screen flex justify-center items-end sm:items-center bg-black bg-opacity-50 z-50"
+      class="fixed top-0 bottom-0 left-0 right-0 z-50 flex items-end justify-center w-screen h-screen bg-black bg-opacity-50 sm:items-center"
     >
       <transition name="modal" @leave="emitEvent">
         <div
           v-if="contentVisible"
-          class="modal-body max-h-screen w-screen sm:w-auto -mb-6 sm:mb-0 bg-white rounded-3xl border-2 border-black p-8 flex flex-col relative"
+          class="relative flex flex-col w-screen max-h-screen p-8 -mb-6 bg-white border-2 border-black modal-body sm:w-auto sm:mb-0 rounded-3xl"
         >
           <close
-            @click.native="closeModal"
-            class="absolute top-4 right-4 w-4 h-4 text-black z-40"
+            @click="closeModal"
+            class="absolute z-40 w-4 h-4 text-black top-4 right-4"
           />
           <slot :closed="closeModal"></slot>
-          <div class="mt-auto mb-2 sm:mb-0 flex justify-evenly space-x-8"></div>
+          <div class="flex mt-auto mb-2 space-x-8 sm:mb-0 justify-evenly"></div>
         </div>
       </transition>
     </div>

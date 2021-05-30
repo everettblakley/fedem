@@ -1,5 +1,5 @@
 <template>
-  <modal v-show="!!pet" v-on="$listeners">
+  <modal v-show="!!pet">
     <template #default="{ closed }">
       <div v-if="!!pet" class="flex flex-col items-center">
         <h5>Feeding {{ pet.name }}</h5>

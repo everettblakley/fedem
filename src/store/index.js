@@ -1,11 +1,8 @@
-import Vue from "vue";
 import Vuex from "vuex";
 import sub from "date-fns/sub";
 import set from "date-fns/set";
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default Vuex.createStore({
   state: {
     isLoading: false,
     session: null,
