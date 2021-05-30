@@ -17,23 +17,73 @@
           :class="{ 'blob-open': menuOpen, 'blob-closed': !menuOpen }"
         ></blob>
       </div>
-      <div class="hidden sm:block" id="desktop-menu">
-        <div
-          class="relative flex items-center justify-center w-10 h-10 bg-yellow-500 rounded-full outline-none cursor-pointer focus:ring-2 focus:ring-black focus:ring-offset-2"
+      <Menu class="relative hidden sm:inline-block" as="div" id="desktop-menu">
+        <MenuButton
+          class="relative flex items-center justify-center w-10 h-10 bg-yellow-500 rounded-full focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-black"
           @click="toggleMenu"
           tabindex="0"
         >
           EB
-        </div>
-        <transition name="dropdown">
-          <div
-            v-if="menuOpen"
-            class="absolute mt-0.5 right-0 py-4 px-8 mr-8 bg-white rounded border-black border-2"
-          >
-            <navbar-content :authenticated="authenticated"></navbar-content>
-          </div>
+        </MenuButton>
+        <transition
+          enter-active-class="transition duration-100 ease-out"
+          enter-from-class="transform scale-95 opacity-0"
+          enter-to-class="transform scale-100 opacity-100"
+          leave-active-class="transition duration-100 ease-in"
+          leave-from-class="transform scale-100 opacity-100"
+          leave-to-class="transform scale-95 opacity-0"
+        >
+          <MenuItems
+            class="absolute mt-0.5 right-0 bg-white border-2 border-black rounded focus-visible:outline-none"
+            ><div class="flex flex-col items-center p-2 space-y-2">
+              <MenuItem v-slot="{ active }" v-if="authenticated">
+                <router-link
+                  to="/profile"
+                  active-class="underline"
+                  as="button"
+                  :class="[active ? 'bg-yellow-500' : '', 'py-2 px-8']"
+                  >Profile</router-link
+                >
+              </MenuItem>
+              <MenuItem v-slot="{ active }" v-if="authenticated">
+                <router-link
+                  :to="{ name: 'Logout' }"
+                  as="button"
+                  :class="[active ? 'bg-yellow-500' : '', 'py-2 px-8']"
+                  >Logout</router-link
+                >
+              </MenuItem>
+              <MenuItem v-slot="{ active }" v-if="!authenticated">
+                <router-link
+                  :to="{ name: 'Login' }"
+                  active-class="underline"
+                  as="button"
+                  :class="[active ? 'bg-yellow-500' : '', 'py-2 px-8']"
+                  >Login</router-link
+                >
+              </MenuItem>
+              <MenuItem v-slot="{ active }" v-if="!authenticated">
+                <router-link
+                  to="/sign-up"
+                  active-class="underline"
+                  as="button"
+                  :class="[active ? 'bg-yellow-500' : '', 'py-2 px-8']"
+                  >Sign up</router-link
+                >
+              </MenuItem>
+              <MenuItem v-slot="{ active }">
+                <router-link
+                  to="/about"
+                  active-class="underline"
+                  as="button"
+                  :class="[active ? 'bg-yellow-500' : '', 'py-2 px-8']"
+                  >About</router-link
+                >
+              </MenuItem>
+            </div>
+          </MenuItems>
         </transition>
-      </div>
+      </Menu>
     </div>
     <transition name="mobile-menu">
       <div
@@ -52,10 +102,20 @@ import Hamburger from "./icons/Hamburger.vue";
 import Close from "./icons/Close.vue";
 import Blob from "./illustrations/Blob.vue";
 import NavbarContent from "./NavbarContent";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 
 export default {
   name: "Navbar",
-  components: { Hamburger, Blob, Close, NavbarContent },
+  components: {
+    Hamburger,
+    Blob,
+    Close,
+    NavbarContent,
+    Menu,
+    MenuButton,
+    MenuItems,
+    MenuItem,
+  },
   data() {
     return {
       menuOpen: false,
@@ -91,18 +151,11 @@ export default {
   transform: scale(8);
 }
 .mobile-menu-enter,
-.mobile-menu-leave-to,
-.dropdown-enter,
-.dropdown-leave-to {
+.mobile-menu-leave-to {
   opacity: 0;
 }
 
 .mobile-menu-enter-active {
   transition: opacity 500ms ease-in-out 500ms;
-}
-
-.dropdown-enter-active,
-.dropdown-leave-active {
-  transition: opacity 200ms ease;
 }
 </style>
